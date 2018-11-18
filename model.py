@@ -233,7 +233,7 @@ if __name__ == "__main__":
 
     network = sys.argv[1]
 
-    fc_count = 0  # count of fully connected layers. Do not remove.
+    # fc_count = 0  # count of fully connected layers.
 
     outputsize = 10
 
@@ -273,10 +273,10 @@ if __name__ == "__main__":
         [variable_summaries(v, name) for (v, name) in ((w, "w"), (b, "b"))]
         tf.summary.histogram('pre_activations', logits_op)
     else:
-        raise ValueError("Incorrect network string in line 7")
+        raise ValueError("Incorrect name for network")
 
     # The training op performs a step of stochastic gradient descent on a minibatch
-    optimizer = tf.train.AdamOptimizer  # ADAM - widely used optimiser (ref: http://arxiv.org/abs/1412.6980)
+    optimizer = tf.train.AdamOptimizer  
     train_op = optimizer(learning_rate).minimize(loss_op)
 
     # Prediction and accuracy ops
@@ -300,6 +300,7 @@ if __name__ == "__main__":
 
     # Initialise TensorBoard Summary writers
     dtstr = "{:%d-%m-%Y %H:%M:%S}".format(datetime.now())
+    
     train_writer = tf.summary.FileWriter('./summaries/' + dtstr + '/train', sess.graph)
     test_writer = tf.summary.FileWriter('./summaries/' + dtstr + '/test')
 
